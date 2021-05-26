@@ -28,20 +28,20 @@ def harris_points_detector(image: np.array, thresh: float) -> List[cv2.KeyPoint]
     image = image.astype(np.float32)
     image /= image.max()  # we should first normalize the image, so that the value sits [0, 1]
     # --- compute the gradients --- #
-    image_dx = sobel(image, axis=1, mode="reflect")  # grads with respect to x (horizontal)
-    image_dy = sobel(image, axis=0, mode="reflect")   # grads with respect to y (vertical)
+    image_dx = sobel(image, axis=1, mode="reflect")  # grads with respect to x (horizontal convolution)
+    image_dy = sobel(image, axis=0, mode="reflect")   # grads with respect to y (vertical convolution)
     # --- compute the components of the harris matrix --- #
     Ixx = image_dx**2
     Iyy = image_dy**2
     Ixy = image_dx * image_dy
     # --- get the gaussian-weighted sums ---- #
-    # we don't need a nested for loop here. convolving with a gaussian filter of 5 by 5 size
-    # evaluates the harris matrix for me. (vectorizing the loop)
-    kernel1d = cv2.getGaussianKernel(GAUSSIAN_WINDOW, SIGMA)  # just ones...
+    # we don't need a nested for loop here. convolving over the image with a gaussian filter of 5 by 5 size
+    # evaluates the harris matrix for me.
+    kernel1d = cv2.getGaussianKernel(GAUSSIAN_WINDOW, SIGMA)
     kernel2d = np.outer(kernel1d, kernel1d.transpose())
-    SIxx = convolve(Ixx, kernel2d, mode="reflect")  # sum up
-    SIyy = convolve(Iyy, kernel2d, mode="reflect")  # sum up
-    SIxy = convolve(Ixy, kernel2d, mode="reflect")  # sum up
+    SIxx = convolve(Ixx, kernel2d, mode="reflect")  # sum up. (gaussian-weighted)
+    SIyy = convolve(Iyy, kernel2d, mode="reflect")  # sum up. (gaussian-weighted)
+    SIxy = convolve(Ixy, kernel2d, mode="reflect")  # sum up. (gaussian-weighted)
     # --- compute the corner strengths --- #
     det = SIxx * SIyy - (SIxy**2)
     trace = SIxx + SIyy
