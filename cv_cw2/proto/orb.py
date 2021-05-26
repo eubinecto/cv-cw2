@@ -14,11 +14,11 @@ def main():
     # https://stackoverflow.com/a/60478312
     orb = cv2.ORB_create()
     # find the keypoints with ORB
-    kp = orb.detect(bernie, None)
+    kps = orb.detect(bernie, None)
     # compute the descriptors with ORB
-    kp, des = orb.compute(bernie, kp)  # what the heck are the "descriptors" by the way?
+    kps, des = orb.compute(bernie, kps)  # what the heck are the "descriptors" by the way?
     # draw only keypoints location, not size and orientation
-    drawn = cv2.drawKeypoints(bernie, kp, None, color=(255, 0, 0), flags=0)
+    drawn = cv2.drawKeypoints(bernie, kps, None, color=(255, 0, 0), flags=0)
     plt.imshow(drawn)
     plt.show()
 
