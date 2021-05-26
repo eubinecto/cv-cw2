@@ -65,3 +65,6 @@ It attempts to solve the follwing two problems;
 1. **Match** the images.. ; implement `matchFeatures` function of `SSDFeatureMatcher` and `RatioFeatureMatcher`.
    - i.e. given a feature in one image, find the best matching feature in another image. 
 2. 
+
+
+using orb -> it is more robust to the noise. (e.g.  bernieMoreBlurred : matches bernie flawlessly.)

@@ -114,7 +114,7 @@ def main():
     # now... you might want to ... visualise all of that.
     parser = argparse.ArgumentParser()
     parser.add_argument("--kps_mode", type=str,
-                        default="harris")
+                        default="orb")
     parser.add_argument("--matcher_mode", type=str,
                         default="ssd")
     parser.add_argument("--thresh", type=float,
