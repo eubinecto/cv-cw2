@@ -74,7 +74,7 @@ def main():
     # first, read the image as a numpy array
     parser = argparse.ArgumentParser()
     parser.add_argument("--thresh", type=float,
-                        default=0.0009)
+                        default=0.01)
     # parse args
     args = parser.parse_args()
     thresh: float = args.thresh

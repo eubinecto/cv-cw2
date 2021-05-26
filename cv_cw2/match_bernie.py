@@ -5,7 +5,7 @@ import numpy as np
 from scipy.spatial.distance import cdist
 import argparse
 import matplotlib.pyplot as plt
-from cv_cw2.identify_keypoints import harris_points_detector
+from cv_cw2.identify_kps import harris_points_detector
 from cv_cw2.paths import VARS_DIR, BERNIE_JPEG
 
 
@@ -49,8 +49,8 @@ class RatioFeatureMatcher(FeatureMatcher):
         for k_1_idx, k_2_idx in enumerate(min_list):
             min_dist = dist_mat[k_1_idx, k_2_idx]
             dist_mat[k_1_idx, k_2_idx] = np.inf  # just a ridiculously large num
-            sec_min_dist = dist_mat[k_1_idx].min()
-            ratio = min_dist / sec_min_dist
+            sec_min_dist = dist_mat[k_1_idx].min()  # get the second min
+            ratio = min_dist / sec_min_dist   # distance of the closest feature match divided by the second min
             match = cv2.DMatch(_queryIdx=k_1_idx, _trainIdx=k_2_idx, _distance=ratio)
             matches.append(match)
         return matches
@@ -61,7 +61,7 @@ def load_vars() -> Tuple[List[str], List[np.ndarray]]:
     """
     this is for loading all the variation images
     """
-    names = os.listdir(VARS_DIR)
+    names = sorted(os.listdir(VARS_DIR))
     var_paths = [
         os.path.join(VARS_DIR, file_name)
         for file_name in names
@@ -93,22 +93,6 @@ def extract_kps(image: np.ndarray, mode: str, thresh: float) -> List[cv2.KeyPoin
         raise ValueError("Invalid mode:", mode)
 
 
-def write_text(image: np.ndarray, text: str) -> np.ndarray:
-    # Write some Text
-    font = cv2.FONT_HERSHEY_SIMPLEX
-    bottomLeftCornerOfText = (10, 10)
-    fontScale = 10
-    fontColor = (255, 255, 255)
-    lineType = 2
-
-    return cv2.putText(image, text,
-                       bottomLeftCornerOfText,
-                       font,
-                       fontScale,
-                       fontColor,
-                       lineType)
-
-
 def main():
     global orb
     # now... you might want to ... visualise all of that.
@@ -118,7 +102,7 @@ def main():
     parser.add_argument("--matcher_mode", type=str,
                         default="ssd")
     parser.add_argument("--thresh", type=float,
-                        default=0.0009)
+                        default=0.01)
 
     # parse args
     args = parser.parse_args()
