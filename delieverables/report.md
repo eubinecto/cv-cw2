@@ -23,7 +23,7 @@ We then compute the corner response, `corner_mat`,  using a 7 by 7 `getGaussianK
 
 Table: The detected keypoints with varying thresholds. The numbers in the parenthesis represent the total number of detected points.
 
-![The number of detected keypoints with varying threshold. ](.report_images/627a4247.png){width=350px}
+![The number of detected keypoints with varying threshold. ](../.report_images/627a4247.png){width=350px}
 
 
 The strongest keypoints (i.e. interest points) are found by thresholding the local maxima of `corner_mat`.
