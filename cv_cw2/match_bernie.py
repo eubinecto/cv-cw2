@@ -59,7 +59,8 @@ class RatioFeatureMatcher(FeatureMatcher):
 # --- utils --- #
 def load_vars() -> Tuple[List[str], List[np.ndarray]]:
     """
-    this is for loading all the variation images
+    this is for loading all the variation images,
+    with their names.
     """
     names = sorted(os.listdir(VARS_DIR))
     var_paths = [
@@ -145,7 +146,7 @@ def main():
                                 matchesMask=None   # all matches are drawn
                                 )
         plt.imshow(drawn)
-        plt.title(bernie_name)  # name it
+        plt.title(bernie_name)  # label it
         plt.show()
 
 

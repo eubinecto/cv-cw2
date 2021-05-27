@@ -14,9 +14,9 @@ image | thresh | kps
 
 the plot:
 ![](.logs_images/42a706a1.png)
-x: threshold
-y: number of kps.
-
+- x: threshold
+- y: number of kps.
+- exponential drop.
 
 
 ## Feature Matching
@@ -34,6 +34,9 @@ ssd | ratio
 ![](.logs_images/0e980062.png) | ![](.logs_images/6b7759e4.png)
 ![](.logs_images/fcf9feb6.png) |![](.logs_images/f6679664.png)
 ![](.logs_images/d6eb7696.png) | ![](.logs_images/9d8a512a.png)
+
+
+you might also want to find out the differences in the number of matches...
 
 ### with orb
 
